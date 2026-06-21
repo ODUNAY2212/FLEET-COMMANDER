@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logistics Fleet Tracker & Status Matrix</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <section>
+      <h1>🚒Fleet Commander: Operations Registry</h1>
+      <hr class="underline" />
+      <div class="container">
+        <div id="active">
+          <h3>Active Fleet Matrix</h3>
+          <hr />
+          <form id="vehicle-form" class="input">
+            <input
+              type="text"
+              id="vehicle-model"
+              placeholder="Vehicle Model"
+            />
+            <input type="number" id="vehicle-odemeter" placeholder="mileage" />
+            <select name="vehicle-status" id="vehicle-status">
+              <option value="Active">Active</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Standby">Standby</option>
+            </select>
+            <button type="submit" id="register-btn">Register</button>
+          </form>
+          <div id="fleet-container-1" class="fleet-list"></div>
+          <div id="fleet-container-2" class="fleet-list"></div>
+          <div id="fleet-container-3" class="fleet-list"></div>
+          <button type="button" id="btn-2">
+            Purge All Vehicle Under Maintenance
+          </button>
+        </div>
+        <div class="sidebar">
+          <div class="statistics">
+            <h3>Operational Statistics</h3>
+            <hr/>
+            <div class="total-distance">
+              <h3>Total Distance:</h3>
+              <p id="total-distance">0 km</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+section {
+  border: rgb(1, 1, 46) solid 10px;
+  border-radius: 1em;
+  margin: 2em;
+}
+section h1 {
+  padding: 10px;
+  font-size: 2em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+section .underline {
+  border: rgba(128, 128, 128, 0.379) solid 1px;
+  margin: 14px 15px;
+}
+.container {
+  margin: 0 20px;
+}
+#active {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  margin: 1em 0.5em;
+  border: rgb(225, 219, 219) dashed 2px;
+  gap: 1em;
+  background-color: aliceblue;
+  min-height: 350px;
+}
+#active h3 {
+  color: rgb(78, 106, 130);
+  font-size: 1.2em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+#active hr {
+  border: rgba(128, 128, 128, 0.379) solid 1px;
+  margin: 2px;
+}
+#vehicle-form {
+  margin: 0 5px;
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+#register-btn {
+  background-color: rgb(55, 55, 101);
+  padding: 5px 9px;
+  border-radius: 3px;
+  color: azure;
+  font-weight: bold;
+  cursor: pointer;
+}
+.fleet-list {
+  margin-top: 16px;
+  margin: 0 10px;
+  border: rgb(236, 230, 230) solid 1px;
+  border-radius: 5px;
+  background-color: white;
+  min-height: 50px;
+}
+#fleet-container-1 {
+  border-left: green solid 5px;
+}
+#fleet-container-2 {
+  border-left: red solid 5px;
+}
+#fleet-container-3 {
+    border-left: blue solid 5px;
+}
+#btn-2 {
+  background-color: rgb(2, 2, 37);
+  color: azure;
+  padding: 10px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.statistics {
+  border: rgb(225, 219, 219) dashed 2px;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  height: 200px;
+  padding: 1em;
+  margin: 1em 0.5em;
+}
+.statistics h3 {
+  color: rgb(78, 106, 130);
+  font-size: 1.5em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.statistics hr {
+  border: rgba(128, 128, 128, 0.379) solid 1px;
+  margin: 2px;
+}
+.total-distance {
+  border: rgb(236, 230, 230) solid 2px;
+  padding: 16px;
+}
+.fleet-card {
+  margin: 8px 10px;
+  padding: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 8px;
+  background-color: #f6f9ff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.fleet-card h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #2b3a54;
+}
+.fleet-card p {
+  margin: 0;
+  color: #4d5f7b;
+}
+.status-text.maintenance {
+  color: #a33;
+}
+.fleet-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.fleet-actions button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #373f5d;
+  color: white;
+  cursor: pointer;
+}
