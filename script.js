@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const modelInput = document.getElementById("vehicle-model");
   const odometerInput = document.getElementById("vehicle-odemeter");
   const statusSelect = document.getElementById("vehicle-status");
-  const purgeButton = document.getElementById("btn-2");
   const activeContainer = document.getElementById("fleet-container-1");
   const maintenanceContainer = document.getElementById("fleet-container-2");
   const standbyContainer = document.getElementById("fleet-container-3");
   const totalDistanceElement = document.getElementById("total-distance");
+  const purgeButton = document.getElementById("btn-2");
 
   const fleet = [];
   const STATUS = {
@@ -15,10 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     MAINTENANCE: "Maintenance",
     STANDBY: "Standby",
   };
-
-  function getSelectedStatus() {
-    return statusSelect.value || STATUS.ACTIVE;
-  }
 
   function formatDistance(value) {
     return `${value.toLocaleString()} km`;
@@ -29,6 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
     totalDistanceElement.textContent = formatDistance(total);
   }
 
+  function getDestination(vehicle) {
+    if (vehicle.status === STATUS.MAINTENANCE) {
+      return maintenanceContainer;
+    }
+    if (vehicle.status === STATUS.STANDBY) {
+      return standbyContainer;
+    }
+    return activeContainer;
+  }
+
   function createVehicleCard(vehicle) {
     const card = document.createElement("div");
     card.className = "fleet-card";
@@ -37,12 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.createElement("h4");
     title.textContent = vehicle.model;
 
-    const odometer = document.createElement("p");
-    odometer.textContent = `Mileage: ${vehicle.odometer.toLocaleString()} km`;
+    const info = document.createElement("p");
+    info.textContent = `Mileage: ${vehicle.odometer.toLocaleString()} km`;
 
     const status = document.createElement("p");
     status.textContent = `Status: ${vehicle.status}`;
-    status.className = `status-text${vehicle.status === STATUS.MAINTENANCE ? " maintenance" : ""}`;
+    status.className =
+      vehicle.status === STATUS.MAINTENANCE
+        ? "status-text maintenance"
+        : "status-text";
 
     const actions = document.createElement("div");
     actions.className = "fleet-actions";
@@ -53,8 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
     removeButton.addEventListener("click", () => removeVehicle(vehicle.id));
 
     actions.appendChild(removeButton);
-    card.append(title, odometer, status, actions);
-    return card; 
+    card.append(title, info, status, actions);
+    return card;
   }
 
   function renderFleet() {
@@ -64,13 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fleet.forEach((vehicle) => {
       const card = createVehicleCard(vehicle);
-      const destination =
-        vehicle.status === STATUS.MAINTENANCE
-          ? maintenanceContainer
-          : vehicle.status === STATUS.STANDBY
-            ? standbyContainer
-            : activeContainer;
-      destination.appendChild(card);
+      getDestination(vehicle).appendChild(card);
     });
 
     updateTotalDistance();
@@ -82,17 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
     modelInput.focus();
   }
 
-  function addVehicle(event) {
-    event.preventDefault();
-
-    const model = modelInput.value.trim();
-    const odometerValue = Number(odometerInput.value);
-    const status = getSelectedStatus();
-
+  function validateInputs(model, odometerValue) {
     if (!model) {
       window.alert("Please enter a vehicle model.");
       modelInput.focus();
-      return;
+      return false;
     }
 
     if (
@@ -102,6 +99,20 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       window.alert("Please enter a valid mileage value.");
       odometerInput.focus();
+      return false;
+    }
+
+    return true;
+  }
+
+  function addVehicle(event) {
+    event.preventDefault();
+
+    const model = modelInput.value.trim();
+    const odometerValue = Number(odometerInput.value);
+    const status = statusSelect.value || STATUS.ACTIVE;
+
+    if (!validateInputs(model, odometerValue)) {
       return;
     }
 
@@ -132,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const maintenanceVehicles = fleet.filter(
       (vehicle) => vehicle.status === STATUS.MAINTENANCE,
     );
+
     if (maintenanceVehicles.length === 0) {
       window.alert("No vehicles under maintenance to purge.");
       return;
@@ -141,11 +153,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const activeVehicles = fleet.filter(
+    const remainingVehicles = fleet.filter(
       (vehicle) => vehicle.status !== STATUS.MAINTENANCE,
     );
     fleet.length = 0;
-    fleet.push(...activeVehicles);
+    fleet.push(...remainingVehicles);
     renderFleet();
   }
 
